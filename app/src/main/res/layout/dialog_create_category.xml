@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/scriptum_card_background"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Criar categoria"
+        android:textColor="@color/scriptum_green"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Informe o nome da nova categoria."
+        android:textColor="@color/scriptum_muted"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/category_title"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/scriptum_input_background"
+        android:hint="Digite o nome"
+        android:inputType="textCapSentences"
+        android:paddingHorizontal="14dp"
+        android:singleLine="true"
+        android:textColor="@color/scriptum_ink" />
+
+    <TextView
+        android:id="@+id/category_title_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:accessibilityLiveRegion="polite"
+        android:textColor="@color/scriptum_error"
+        android:textSize="12sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/category_form_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:accessibilityLiveRegion="polite"
+        android:textColor="@color/scriptum_error"
+        android:textSize="13sp"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/category_create_submit"
+        style="@style/ScriptumPrimaryButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="8dp"
+        android:text="Criar categoria" />
+
+    <Button
+        android:id="@+id/category_create_cancel"
+        style="@style/ScriptumSecondaryButton"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="8dp"
+        android:text="Cancelar" />
+</LinearLayout>

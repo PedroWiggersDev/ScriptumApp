@@ -1,0 +1,26 @@
+[
+  {
+    "id": "trabalho",
+    "title": "Trabalho"
+  },
+  {
+    "id": "estudos",
+    "title": "Estudos"
+  },
+  {
+    "id": "financas",
+    "title": "Finanças"
+  },
+  {
+    "id": "viagens",
+    "title": "Viagens"
+  },
+  {
+    "id": "projetos",
+    "title": "Projetos"
+  },
+  {
+    "id": "saude",
+    "title": "Saúde"
+  }
+]

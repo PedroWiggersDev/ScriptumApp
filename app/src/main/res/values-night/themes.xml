@@ -1,0 +1,12 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.ScriptumApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/scriptum_green</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/scriptum_green</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorTertiary">@color/scriptum_green</item>
+        <item name="colorControlActivated">@color/scriptum_green</item>
+        <item name="colorAccent">@color/scriptum_green</item>
+    </style>
+</resources>

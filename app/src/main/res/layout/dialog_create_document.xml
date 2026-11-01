@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/document_dialog_scroll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/scriptum_card_background"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Criar documento"
+            android:textColor="@color/scriptum_green"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Defina o título e escolha como criar o conteúdo."
+            android:textColor="@color/scriptum_muted"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:text="Título do documento"
+            android:textColor="@color/scriptum_ink"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/document_title"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/scriptum_input_background"
+            android:hint="Digite o título"
+            android:inputType="textCapSentences"
+            android:paddingHorizontal="14dp"
+            android:singleLine="true"
+            android:textColor="@color/scriptum_ink" />
+
+        <TextView
+            android:id="@+id/document_title_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:accessibilityLiveRegion="polite"
+            android:textColor="@color/scriptum_error"
+            android:textSize="12sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="8dp"
+            android:text="Como criar o documento?"
+            android:textColor="@color/scriptum_ink"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/document_mode_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="8dp">
+
+            <RadioButton
+                android:id="@+id/document_mode_scan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/scriptum_green"
+                android:checked="true"
+                android:padding="8dp"
+                android:text="Escanear imagem"
+                android:textColor="@color/scriptum_ink" />
+
+            <RadioButton
+                android:id="@+id/document_mode_manual"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/scriptum_green"
+                android:padding="8dp"
+                android:text="Digitar manualmente"
+                android:textColor="@color/scriptum_ink" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:id="@+id/document_manual_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/document_content"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/scriptum_input_background"
+                android:gravity="top|start"
+                android:hint="Digite o conteúdo do documento"
+                android:inputType="textCapSentences|textMultiLine"
+                android:padding="14dp"
+                android:textColor="@color/scriptum_ink" />
+
+            <TextView
+                android:id="@+id/document_content_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:accessibilityLiveRegion="polite"
+                android:textColor="@color/scriptum_error"
+                android:textSize="12sp"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/document_scan_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="Como escanear?"
+                android:textColor="@color/scriptum_ink"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/document_scan_actions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/document_take_photo"
+                    style="@style/ScriptumSecondaryButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="58dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="Tirar foto\nUse a câmera do dispositivo." />
+
+                <Button
+                    android:id="@+id/document_select_image"
+                    style="@style/ScriptumSecondaryButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="58dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="Enviar arquivo do dispositivo\nSelecione uma imagem salva para leitura." />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/document_selected_file"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/scriptum_input_background"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/document_selected_file_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="middle"
+                    android:maxLines="1"
+                    android:textColor="@color/scriptum_ink"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/document_remove_file"
+                    style="@style/ScriptumSecondaryButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="8dp"
+                    android:text="Remover" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/document_scan_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:textColor="@color/scriptum_muted"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/document_form_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:accessibilityLiveRegion="polite"
+            android:textColor="@color/scriptum_error"
+            android:textSize="13sp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/document_save"
+            style="@style/ScriptumPrimaryButton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:text="Salvar documento" />
+
+        <Button
+            android:id="@+id/document_cancel"
+            style="@style/ScriptumSecondaryButton"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="8dp"
+            android:text="Cancelar" />
+    </LinearLayout>
+</ScrollView>

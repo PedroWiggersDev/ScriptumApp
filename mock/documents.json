@@ -1,0 +1,83 @@
+[
+  {
+    "id": "doc-trabalho-1",
+    "categoryId": "trabalho",
+    "title": "Relatório de vendas Q3",
+    "summary": "4 parágrafos",
+    "status": "DIGITADO",
+    "statusDetail": "Manual",
+    "content": "Resumo das vendas do terceiro trimestre. O faturamento cresceu em relação ao período anterior."
+  },
+  {
+    "id": "doc-trabalho-2",
+    "categoryId": "trabalho",
+    "title": "Contrato de prestação de serviços",
+    "summary": "0 parágrafos • Pendente",
+    "status": "ESCANEAMENTO",
+    "statusDetail": "Em andamento",
+    "content": ""
+  },
+  {
+    "id": "doc-trabalho-3",
+    "categoryId": "trabalho",
+    "title": "Recibo de entrega",
+    "summary": "2 parágrafos • Revisão necessária",
+    "status": "ESCANEADO",
+    "statusDetail": "Confiança: 42%",
+    "content": "Recibo de entrega recebido para revisão."
+  },
+  {
+    "id": "doc-estudos-1",
+    "categoryId": "estudos",
+    "title": "Anotações de arquitetura",
+    "summary": "3 parágrafos",
+    "status": "DIGITADO",
+    "statusDetail": "Manual",
+    "content": "Camadas de apresentação, domínio e dados devem manter responsabilidades separadas."
+  },
+  {
+    "id": "doc-estudos-2",
+    "categoryId": "estudos",
+    "title": "Resumo de banco de dados",
+    "summary": "5 parágrafos",
+    "status": "ESCANEADO",
+    "statusDetail": "OCR 92%",
+    "content": "Resumo sobre consultas, índices e normalização."
+  },
+  {
+    "id": "doc-financas-1",
+    "categoryId": "financas",
+    "title": "Despesas de outubro",
+    "summary": "8 lançamentos",
+    "status": "DIGITADO",
+    "statusDetail": "Manual",
+    "content": "Aluguel, mercado, transporte e serviços."
+  },
+  {
+    "id": "doc-viagens-1",
+    "categoryId": "viagens",
+    "title": "Roteiro de Florianópolis",
+    "summary": "6 parágrafos",
+    "status": "DIGITADO",
+    "statusDetail": "Manual",
+    "content": "Roteiro de viagem com locais, datas e reservas."
+  },
+  {
+    "id": "doc-projetos-1",
+    "categoryId": "projetos",
+    "title": "Aplicativo Scriptum",
+    "summary": "4 tarefas",
+    "status": "DIGITADO",
+    "statusDetail": "Manual",
+    "content": "Implementar autenticação, categorias, documentos e processamento em segundo plano."
+  },
+  {
+    "id": "doc-saude-1",
+    "categoryId": "saude",
+    "title": "Consulta médica",
+    "summary": "2 parágrafos",
+    "status": "DIGITADO",
+    "statusDetail": "Manual",
+    "content": "Anotações para a próxima consulta."
+  }
+]

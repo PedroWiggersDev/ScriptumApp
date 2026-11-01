@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="scriptum_green">#205B4E</color>
+    <color name="scriptum_muted">#799187</color>
+    <color name="scriptum_background">#ECF4F1</color>
+    <color name="scriptum_ink">#344D45</color>
+    <color name="scriptum_input">#F4F8F6</color>
+    <color name="scriptum_border">#D8E5DE</color>
+    <color name="scriptum_error">#B3261E</color>
+</resources>
