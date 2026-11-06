@@ -279,6 +279,16 @@ public class ScreenFragment extends Fragment {
         dialog.show();
     }
 
+    private String fileToBase64(File file) {
+        try (java.io.FileInputStream inputStream = new java.io.FileInputStream(file)) {
+            byte[] bytes = new byte[(int) file.length()];
+            inputStream.read(bytes);
+            return android.util.Base64.encodeToString(bytes, android.util.Base64.NO_WRAP);
+        } catch (java.io.IOException e) {
+            return null;
+        }
+    }
+
     /** Exibe o formulário de documento como diálogo com alternância entre digitação e escaneamento. */
     private void showCreateDocumentDialog() {
         View form = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_create_document, null, false);
@@ -437,25 +447,43 @@ public class ScreenFragment extends Fragment {
             clearError(contentError);
             clearError(documentFormError);
             String title = documentTitleField.getText().toString().trim();
-            String content = documentContentField.getText().toString().trim();
             boolean valid = true;
+
             if (title.isEmpty()) {
                 showError(titleError, "Informe o título do documento.");
                 valid = false;
             }
-            if (!scannedDocument && content.isEmpty()) {
-                showError(contentError, "Digite o conteúdo do documento.");
-                valid = false;
+
+            if (scannedDocument) {
+                if (!imageSelected || selectedImageFile == null) {
+                    showError(documentFormError, "Aguarde o processamento da imagem ou selecione uma foto.");
+                    valid = false;
+                }
+            } else {
+                String content = documentContentField.getText().toString().trim();
+                if (content.isEmpty()) {
+                    showError(contentError, "Digite o conteúdo do documento.");
+                    valid = false;
+                }
             }
-            if (scannedDocument && !imageSelected) {
-                showError(documentFormError, "Selecione uma imagem ou tire uma foto.");
-                valid = false;
-            }
-            if (!valid) {
-                return;
-            }
+
+            if (!valid) return;
+
             setButtonEnabled(view, R.id.document_save, false);
-            viewModel.submitTask(categoryId, title, content);
+
+            if (scannedDocument) {
+
+                String base64 = fileToBase64(selectedImageFile);
+                if (base64 == null) {
+                    showError(documentFormError, "Erro ao preparar a imagem.");
+                    setButtonEnabled(view, R.id.document_save, true);
+                    return;
+                }
+                viewModel.submitScannedTask(categoryId, title, base64);
+            } else {
+                String content = documentContentField.getText().toString().trim();
+                viewModel.submitTask(categoryId, title, content);
+            }
         });
         view.findViewById(R.id.document_cancel).setOnClickListener(v -> {
             if (dialog == null) {
@@ -638,13 +666,20 @@ public class ScreenFragment extends Fragment {
                 .build();
         processingWorkId = request.getId();
         WorkManager.getInstance(requireContext()).enqueue(request);
+
         WorkManager.getInstance(requireContext()).getWorkInfoByIdLiveData(request.getId()).observe(getViewLifecycleOwner(), info -> {
             if (info == null || !isAdded()) {
                 return;
             }
             if (info.getState() == WorkInfo.State.SUCCEEDED) {
-                documentScanStatus.setText("Imagem pré-processada. A integração de OCR será adicionada posteriormente.");
+                documentScanStatus.setText("Imagem pré-processada pronta para envio.");
                 processingWorkId = null;
+
+                String processedPath = info.getOutputData().getString("processed_path");
+                if (processedPath != null) {
+                    selectedImageFile = new File(processedPath);
+                }
+
             } else if (info.getState() == WorkInfo.State.FAILED) {
                 String error = info.getOutputData().getString("error");
                 showError(documentFormError, error == null ? "Falha ao processar a imagem." : error);

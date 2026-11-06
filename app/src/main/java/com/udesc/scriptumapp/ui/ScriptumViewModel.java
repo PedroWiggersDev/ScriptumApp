@@ -101,6 +101,15 @@ public class ScriptumViewModel extends AndroidViewModel {
         });
     }
 
+    public void submitScannedTask(String categoryId, String title, String imageBase64) {
+        repository.sendScannedTask(categoryId, title, imageBase64, "por", (success, error) -> {
+            OperationResult<Boolean> result = error == null
+                    ? OperationResult.success(success)
+                    : OperationResult.failure(error);
+            taskSubmissionResult.postValue(new Event<>(result));
+        });
+    }
+
     public void loadDocuments(String categoryId) {
         repository.getDocuments(categoryId, (documents, error) -> {
             OperationResult<List<Document>> result = error == null

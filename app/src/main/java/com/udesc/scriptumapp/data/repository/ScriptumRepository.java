@@ -50,6 +50,11 @@ public class ScriptumRepository {
         api.getCategories(session == null ? null : session.token, callback);
     }
 
+    public void sendScannedTask(String categoryId, String title, String imageBase64, String language, ScriptumApi.TaskCallback callback) {
+        LocalDatabase.Session session = getSession();
+        api.sendScannedTask(session == null ? null : session.token, categoryId, title, imageBase64, language, callback);
+    }
+
     /** Busca os documentos remotos pertencentes a uma categoria. */
     public void getDocuments(String categoryId, ScriptumApi.DocumentsCallback callback) {
         LocalDatabase.Session session = getSession();

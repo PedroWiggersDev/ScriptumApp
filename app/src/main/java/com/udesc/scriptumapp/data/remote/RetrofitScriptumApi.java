@@ -122,8 +122,12 @@ public class RetrofitScriptumApi implements ScriptumApi {
 
     @Override
     public void sendTask(String token, String categoryId, String documentTitle, String content, TaskCallback callback) {
+        // Separa o texto em parágrafos por quebra de linha
         List<String> paragraphs = Arrays.asList(content.split("\\r?\\n"));
-        RetrofitEndpoints.ManualDocumentRequest request = new RetrofitEndpoints.ManualDocumentRequest(documentTitle, paragraphs);
+
+        // Passa o categoryId (convertido para Long) junto com o título e os parágrafos
+        Long catId = Long.parseLong(categoryId);
+        RetrofitEndpoints.ManualDocumentRequest request = new RetrofitEndpoints.ManualDocumentRequest(catId, documentTitle, paragraphs);
 
         endpoints.createManualDocument("Bearer " + token, request).enqueue(new Callback<Document>() {
             @Override
@@ -132,6 +136,29 @@ public class RetrofitScriptumApi implements ScriptumApi {
                     callback.onResult(true, null);
                 } else {
                     callback.onResult(false, new Exception("Erro ao salvar documento: " + response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Document> call, Throwable t) {
+                callback.onResult(false, t);
+            }
+        });
+    }
+
+    @Override
+    public void sendScannedTask(String token, String categoryId, String documentTitle, String imageBase64, String language, TaskCallback callback) {
+        Long catId = Long.parseLong(categoryId);
+        RetrofitEndpoints.NoteRequest request = new RetrofitEndpoints.NoteRequest(catId, documentTitle, imageBase64, language);
+
+        endpoints.sendScannedDocument("Bearer " + token, request).enqueue(new Callback<Document>() {
+            @Override
+            public void onResponse(Call<Document> call, retrofit2.Response<Document> response) {
+                if (response.isSuccessful()) {
+                    // O Quarkus vai retornar 202 Accepted, liberando o app imediatamente
+                    callback.onResult(true, null);
+                } else {
+                    callback.onResult(false, new Exception("Erro ao enviar escaneamento: " + response.code()));
                 }
             }
 

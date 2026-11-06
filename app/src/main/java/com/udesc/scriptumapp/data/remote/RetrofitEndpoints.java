@@ -36,14 +36,36 @@ public interface RetrofitEndpoints {
             @Body CategoryRequest request
     );
 
+    public static class NoteRequest {
+        public Long categoryId;
+        public String titulo; // Note que aqui é 'titulo' para bater com o Quarkus
+        public String imageBase64;
+        public String language;
+
+        public NoteRequest(Long categoryId, String titulo, String imageBase64, String language) {
+            this.categoryId = categoryId;
+            this.titulo = titulo;
+            this.imageBase64 = imageBase64;
+            this.language = language;
+        }
+    }
+
+    @POST("/documents/scanned") // Ou a rota correta onde você mapeia a entrada do escaneamento
+    Call<Document> sendScannedDocument(
+            @Header("Authorization") String token,
+            @Body NoteRequest request
+    );
+
     @POST("/auth/login")
     Call<AuthResponse> authenticate(@Body AuthRequest request);
 
-    class ManualDocumentRequest {
+    public static class ManualDocumentRequest {
+        public Long categoryId;
         public String title;
         public List<String> paragraphs;
 
-        public ManualDocumentRequest(String title, List<String> paragraphs) {
+        public ManualDocumentRequest(Long categoryId, String title, List<String> paragraphs) {
+            this.categoryId = categoryId;
             this.title = title;
             this.paragraphs = paragraphs;
         }

@@ -21,6 +21,8 @@ public interface ScriptumApi {
     // Integração serviço de tarefas: registrar documento/conteúdo processado no backend.
     void sendTask(String token, String categoryId, String documentTitle, String content, TaskCallback callback);
 
+    void sendScannedTask(String token, String categoryId, String title, String imageBase64, String language, TaskCallback callback);
+
     interface AuthCallback {
         void onResult(String token, String username, Throwable error);
     }
