@@ -150,12 +150,19 @@ public class MockScriptumApi implements ScriptumApi {
     }
 
     private Document toDocument(JSONObject item) throws JSONException {
+
+        String rawContent = item.optString("content", "");
+        List<String> contentList = new ArrayList<>();
+        if (!rawContent.isEmpty()) {
+            contentList.add(rawContent);
+        }
+
         return new Document(
                 item.getString("title"),
-                item.optString("summary", ""),
+                contentList,
                 item.optString("status", "DIGITADO"),
-                item.optString("statusDetail", ""),
-                item.optString("content", ""));
+                100.0
+        );
     }
 
     private void requireToken(String token) throws MockApiException {

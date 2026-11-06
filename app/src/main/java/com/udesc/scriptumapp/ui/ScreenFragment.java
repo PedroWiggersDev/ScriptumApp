@@ -487,9 +487,9 @@ public class ScreenFragment extends Fragment {
     private void openDocument(Document document) {
         Bundle arguments = categoryArguments();
         arguments.putString(DOCUMENT_TITLE_KEY, document.title);
-        arguments.putString(DOCUMENT_SUMMARY_KEY, document.summary);
-        arguments.putString(DOCUMENT_STATUS_KEY, document.status + " • " + document.statusDetail);
-        arguments.putString(DOCUMENT_CONTENT_KEY, document.content);
+        arguments.putString(DOCUMENT_SUMMARY_KEY, document.getSummary());
+        arguments.putString(DOCUMENT_STATUS_KEY, document.status + " • " + document.getStatusDetail());
+        arguments.putString(DOCUMENT_CONTENT_KEY, document.getJoinedContent());
         ((MainActivity) requireActivity()).showPage(DETAIL, arguments);
     }
 

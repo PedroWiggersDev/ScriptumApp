@@ -5,6 +5,7 @@ import com.udesc.scriptumapp.model.AuthResponse;
 import com.udesc.scriptumapp.model.Category;
 import com.udesc.scriptumapp.model.Document;
 import java.util.List;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -21,7 +22,8 @@ public class RetrofitScriptumApi implements ScriptumApi {
 
     public RetrofitScriptumApi() {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        logging.setLevel(HttpLoggingInterceptor.Level.HEADERS);
+
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(logging)
                 .connectTimeout(60, TimeUnit.SECONDS)
@@ -30,35 +32,13 @@ public class RetrofitScriptumApi implements ScriptumApi {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://scriptum-kong-homol.onrender.com") // URL do Kong!
+                .baseUrl("https://scriptum-kong-homol.onrender.com")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         endpoints = retrofit.create(RetrofitEndpoints.class);
     }
-
-    @Override
-    public void getCategories(String token, CategoriesCallback callback) {
-
-        endpoints.getCategories("Bearer " + token).enqueue(new Callback<List<Category>>() {
-            @Override
-            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-                if (response.isSuccessful()) {
-                    callback.onResult(response.body(), null);
-                } else {
-                    callback.onResult(null, new Exception("Erro HTTP: " + response.code()));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Category>> call, Throwable t) {
-                callback.onResult(null, t);
-            }
-        });
-    }
-
-    // TODO: Implementar getDocuments, createCategory, etc seguindo o mesmo padrão acima
 
     @Override
     public void authenticate(String username, String password, AuthCallback callback) {
@@ -82,13 +62,83 @@ public class RetrofitScriptumApi implements ScriptumApi {
     }
 
     @Override
-    public void getDocuments(String token, String categoryId, DocumentsCallback callback) {
-        // Implementar...
+    public void getCategories(String token, CategoriesCallback callback) {
+        endpoints.getCategories("Bearer " + token).enqueue(new Callback<List<Category>>() {
+            @Override
+            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+                if (response.isSuccessful()) {
+                    callback.onResult(response.body(), null);
+                } else {
+                    callback.onResult(null, new Exception("Erro HTTP: " + response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Category>> call, Throwable t) {
+                callback.onResult(null, t);
+            }
+        });
     }
 
     @Override
-    public void createCategory(String token, String title, CategoryCallback callback) {}
+    public void getDocuments(String token, String categoryId, DocumentsCallback callback) {
+        endpoints.getDocumentsByCategory("Bearer " + token, Long.parseLong(categoryId)).enqueue(new Callback<List<Document>>() {
+            @Override
+            public void onResponse(Call<List<Document>> call, Response<List<Document>> response) {
+                if (response.isSuccessful()) {
+                    callback.onResult(response.body(), null);
+                } else {
+                    callback.onResult(null, new Exception("Erro ao buscar documentos: " + response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Document>> call, Throwable t) {
+                callback.onResult(null, t);
+            }
+        });
+    }
 
     @Override
-    public void sendTask(String token, String categoryId, String documentTitle, String content, TaskCallback callback) {}
+    public void createCategory(String token, String title, CategoryCallback callback) {
+        RetrofitEndpoints.CategoryRequest request = new RetrofitEndpoints.CategoryRequest(title);
+
+        endpoints.createCategory("Bearer " + token, request).enqueue(new Callback<Category>() {
+            @Override
+            public void onResponse(Call<Category> call, Response<Category> response) {
+                if (response.isSuccessful()) {
+                    callback.onResult(response.body(), null);
+                } else {
+                    callback.onResult(null, new Exception("Erro ao criar categoria: " + response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Category> call, Throwable t) {
+                callback.onResult(null, t);
+            }
+        });
+    }
+
+    @Override
+    public void sendTask(String token, String categoryId, String documentTitle, String content, TaskCallback callback) {
+        List<String> paragraphs = Arrays.asList(content.split("\\r?\\n"));
+        RetrofitEndpoints.ManualDocumentRequest request = new RetrofitEndpoints.ManualDocumentRequest(documentTitle, paragraphs);
+
+        endpoints.createManualDocument("Bearer " + token, request).enqueue(new Callback<Document>() {
+            @Override
+            public void onResponse(Call<Document> call, Response<Document> response) {
+                if (response.isSuccessful()) {
+                    callback.onResult(true, null);
+                } else {
+                    callback.onResult(false, new Exception("Erro ao salvar documento: " + response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Document> call, Throwable t) {
+                callback.onResult(false, t);
+            }
+        });
+    }
 }

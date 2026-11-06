@@ -54,8 +54,8 @@ final class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Documen
     public void onBindViewHolder(@NonNull DocumentHolder holder, int position) {
         Document document = filteredItems.get(position);
         holder.title.setText(document.title);
-        holder.summary.setText(document.summary);
-        holder.status.setText(document.status + "\n" + document.statusDetail);
+        holder.summary.setText(document.getSummary());
+        holder.status.setText(document.status + "\n" + document.getStatusDetail());
         holder.itemView.setOnClickListener(view -> onDocumentClick.accept(document));
     }
 
