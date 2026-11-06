@@ -9,6 +9,6 @@ public final class ScriptumApiFactory {
     }
 
     public static ScriptumApi create(Context context) {
-        return new MockScriptumApi(context.getApplicationContext());
+        return new RetrofitScriptumApi();
     }
 }
