@@ -38,19 +38,19 @@ public interface RetrofitEndpoints {
 
     public static class NoteRequest {
         public Long categoryId;
-        public String titulo; // Note que aqui é 'titulo' para bater com o Quarkus
+        public String title;
         public String imageBase64;
         public String language;
 
-        public NoteRequest(Long categoryId, String titulo, String imageBase64, String language) {
+        public NoteRequest(Long categoryId, String title, String imageBase64, String language) {
             this.categoryId = categoryId;
-            this.titulo = titulo;
+            this.title = title;
             this.imageBase64 = imageBase64;
             this.language = language;
         }
     }
 
-    @POST("/documents/scanned") // Ou a rota correta onde você mapeia a entrada do escaneamento
+    @POST("/documents/scanned")
     Call<Document> sendScannedDocument(
             @Header("Authorization") String token,
             @Body NoteRequest request

@@ -93,6 +93,15 @@ public class MockScriptumApi implements ScriptumApi {
     }
 
     @Override
+    public void sendScannedTask(String token, String categoryId, String title, String imageBase64, String language, TaskCallback callback) {
+
+        if (callback != null) {
+            callback.onResult(true, null);
+        }
+    }
+
+
+    @Override
     public void createCategory(String token, String title, CategoryCallback callback) {
         execute(() -> {
             requireToken(token);
